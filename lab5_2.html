@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Обробка тексту</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h2>Введіть текст:</h2>
+    <textarea id="inputText" rows="2" cols="70" placeholder="Введіть текст тут"></textarea>
+    <br><br>
+    <button onclick="processText()">Обробити текст</button>
+    
+    <h3>Результати:</h3>
+    <p id="letterCount">Кількість літер у передостанньому слові: </p>
+    <p id="modifiedText">Змінений текст: </p>
+
+    <script>
+        function processText() {
+            // Отримуємо текст із текстового поля
+            let input = document.getElementById("inputText").value.trim();
+            
+            // Розділяємо текст на слова
+            let words = input.split(" ");
+            
+            // Перевіряємо, чи є принаймні два слова
+            if (words.length < 2) {
+                alert("Текст має містити принаймні два слова");
+                return;
+            }
+            
+            // Отримуємо передостаннє слово і рахуємо кількість літер
+            let secondLastWord = words[words.length - 2];
+            let letterCount = secondLastWord.length;
+            document.getElementById("letterCount").innerText = "Кількість літер у передостанньому слові: " + letterCount;
+            
+            // Змінюємо першу та останню літери у кожному слові
+            let modifiedWords = words.map(word => {
+                if (word.length <= 1) return word; // Якщо слово з однієї літери, повертаємо його без змін
+                let firstLetter = word[0];
+                let lastLetter = word[word.length - 1];
+                let middle = word.slice(1, -1);
+                return lastLetter + middle + firstLetter;
+            });
+            
+            // З'єднуємо слова назад у рядок і виводимо результат
+            let modifiedText = modifiedWords.join(" ");
+            document.getElementById("modifiedText").innerText = "Змінений текст: " + modifiedText;
+        }
+    </script>
+</body>
+</html>

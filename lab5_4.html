@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 5-4</title>
+</head>
+<body>
+    <script>
+        function shuffleWord(word) {
+            if (word.length <= 2) {
+                return word; 
+            }
+
+            var letters = word.match(/[a-zA-Z]/g);
+            if (!letters) return word;
+
+            var firstLetter = word[0];
+            var lastLetter = word[word.length - 1];
+
+            var middleLetters = letters.slice(1, -1);
+
+            for (var i = middleLetters.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [middleLetters[i], middleLetters[j]] = [middleLetters[j], middleLetters[i]];
+            }
+
+            var shuffledWord = firstLetter + middleLetters.join('') + lastLetter;
+            return word.replace(/[a-zA-Z]+/, shuffledWord);
+        }
+
+        function encryptText(text) {
+            var words = text.split(" "); 
+            var encryptedWords = [];
+
+            for (var i = 0; i < words.length; i++) {
+                encryptedWords.push(shuffleWord(words[i]));
+            }
+
+            return encryptedWords.join(" "); 
+        }
+
+        var inputText = "Hello, World! This is a simple encryption.";
+
+        var encryptedText = encryptText(inputText);
+
+        document.write("Вхідний текст: " + inputText + "<br>");
+        document.write("Зашифрований текст: " + encryptedText + "<br>");
+        var button = document.createElement('button');
+        button.innerHTML = 'Назад';
+        button.onclick = function() {
+            window.location.href = 'index.html';
+        };
+        document.body.appendChild(button);
+    </script>
+</body>
+</html>

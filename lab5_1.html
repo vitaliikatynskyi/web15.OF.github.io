@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 5-1</title>
+</head>
+<body>
+    <script>
+        function processString(inputString) {
+            let result = "";
+            let countPlusMinus = 0;
+            let countO = 0;
+            let skipNextQuestionMark = false;
+            
+            for (let char of inputString) {   
+                if (skipNextQuestionMark && char === '?') {
+                    skipNextQuestionMark = false;
+                    continue;
+                }
+                
+                if (char === ';') {
+                    result += '';
+                    skipNextQuestionMark = true;
+                } else {
+                    result += char;
+                }
+
+                if (char === 'o' || char === 'O') {
+                    countO++;
+                }
+            }
+            
+            return { modifiedString: result, countPlusMinus: countPlusMinus, countO: countO };
+        }
+
+        const inputString = "Hello????;?w????;?orl????;?ooO;?d";
+
+        const result = processString(inputString);
+
+        document.write("Вхідний рядок: " + inputString + "<br>");
+        document.write("Результуючий рядок: " + result.modifiedString + "<br>");
+       
+        document.write("Кількість символів 'o' та 'O': " + result.countO + "<br>");
+        var button = document.createElement('button');
+        button.innerHTML = 'Назад';
+        button.onclick = function() {
+            window.location.href = 'index.html';
+        };
+        document.body.appendChild(button);
+    </script>
+</body>
+</html>
